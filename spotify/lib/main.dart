@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Clone Spotify UI',
+      title: 'Demo Spotify UI',
       debugShowCheckedModeBanner: false,
       theme: theme.copyWith(
         colorScheme: theme.colorScheme.copyWith(secondary: const Color(0xFF1DB954)),

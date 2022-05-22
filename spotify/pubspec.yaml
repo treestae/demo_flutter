@@ -1,5 +1,5 @@
 name: spotify_ui
-description: It's a clone of spotify UI.
+description: It's a demo of spotify UI.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 

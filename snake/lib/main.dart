@@ -5,8 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:snake/snake.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 void main() {
+  setPathUrlStrategy();
   runApp(const MyApp());
 }
 
@@ -113,7 +115,7 @@ class _SnakeGameState extends State<SnakeGame> {
               ),
             ),
           ),
-          Text("Move: Arrows OR Drag\n\nSpeed: + OR -", style: fontStyle.copyWith(fontSize: 14)),
+          Text("Move: Arrows OR Drag\n\nSpeed: + OR -\n\nStart/End: Space", style: fontStyle.copyWith(fontSize: 14)),
           const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -147,8 +149,6 @@ class _SnakeGameState extends State<SnakeGame> {
                       if (isPlaying) {
                         isPlaying = false;
                       } else {
-                        isPlaying = true;
-                        FocusScope.of(context).requestFocus(_focusNode);
                         startGame();
                       }
                     });
@@ -169,6 +169,7 @@ class _SnakeGameState extends State<SnakeGame> {
   }
 
   void startGame() {
+    FocusScope.of(context).requestFocus(_focusNode);
     snake.init();
     isPlaying = true;
 
@@ -250,7 +251,6 @@ class _SnakeGameState extends State<SnakeGame> {
     if (event is! KeyDownEvent) return;
 
     var key = event.logicalKey;
-
     setState(() {
       if (key == LogicalKeyboardKey.arrowUp) {
         snake.setNextDirection(SnakeDirection.up);
@@ -264,6 +264,12 @@ class _SnakeGameState extends State<SnakeGame> {
         _speedUp();
       } else if (key == LogicalKeyboardKey.numpadSubtract || key == LogicalKeyboardKey.minus) {
         _speedDown();
+      } else if (key == LogicalKeyboardKey.space) {
+        if (isPlaying) {
+          isPlaying = false;
+        } else {
+          startGame();
+        }
       }
     });
   }

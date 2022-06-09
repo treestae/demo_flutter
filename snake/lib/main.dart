@@ -96,6 +96,7 @@ class _SnakeGameState extends State<SnakeGame> {
                         var x = index % squaresPerRow;
                         var y = index ~/ squaresPerRow;
 
+                        // 머리, 몸통, 음식의 종류에 따라 다른 색으로 만든다.
                         if (snake.isHead(x, y)) {
                           color = Colors.green;
                         } else if (snake.isBody(x, y)) {
@@ -203,6 +204,7 @@ class _SnakeGameState extends State<SnakeGame> {
     }));
   }
 
+  // 음식을 랜덤 위치에 생성
   void _creatFood() {
     food = [randomGen.nextInt(squaresPerRow), randomGen.nextInt(squaresPerCol)];
   }

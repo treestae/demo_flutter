@@ -1,0 +1,34 @@
+name: my_shop
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  url_strategy: ^0.2.0
+
+  flutter_svg: ^1.0.3 # SVG 이미지를 쉽게 사용할 수 있게 해줍니다.
+  intl: ^0.17.0       # NumberFormat 사용하여 콤마 표시
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+
+flutter:
+  uses-material-design: true
+
+  assets:             # 사용할 애셋 폴더를 아래 추가해줍니다.
+    - assets/icons/
+    - assets/images/

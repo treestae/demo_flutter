@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:spotify_ui/models/current_track.dart';
 import 'package:provider/provider.dart';
@@ -5,9 +7,14 @@ import 'package:provider/provider.dart';
 import '../data/data.dart';
 
 class TracksList extends StatelessWidget {
-  final List<Song> tracks;
+  late final List<Song> tracks;
 
-  const TracksList({Key? key, required this.tracks}) : super(key: key);
+  TracksList({Key? key, dynamic jsonData}) : super(key: key) {
+    List<dynamic> parsedJson = jsonDecode(jsonData);
+
+    // print(parsedJson);
+    tracks = parsedJson.map((e) => Song.fromJson(e)).toList();
+  }
 
   @override
   Widget build(BuildContext context) {

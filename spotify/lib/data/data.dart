@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 const yourLibrary = [
   'Made For You',
   'Recently Played',
@@ -36,6 +38,23 @@ class Song {
     required this.album,
     required this.duration,
   });
+
+  Song.fromJson(Map<String, dynamic> json)
+      : id = json["id"],
+        title = json["title"],
+        artist = json["artist"],
+        album = json["album"],
+        duration = json["duration"];
+
+  String toJson() {
+    return jsonEncode(<String, dynamic>{
+      "id": id,
+      "title": title,
+      "artist": artist,
+      "album": album,
+      "duration": duration,
+    });
+  }
 }
 
 const _lofihiphopMusic = [
@@ -151,8 +170,7 @@ const lofihiphopPlaylist = Playlist(
   id: '5-playlist',
   name: 'lofi hip hop music - beats to relax/study to',
   imageURL: 'assets/lofigirl.jpg',
-  description:
-      'A daily selection of chill beats - perfect to help you relax & study 📚',
+  description: 'A daily selection of chill beats - perfect to help you relax & study 📚',
   creator: 'Lofi Girl',
   duration: '28 min',
   followers: '5,351,685',

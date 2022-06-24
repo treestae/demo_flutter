@@ -1,4 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+
+import 'package:http/http.dart' as http;
 
 import '../data/data.dart';
 import '../widgets/playlist_header.dart';
@@ -14,17 +19,37 @@ class PlaylistScreen extends StatefulWidget {
 }
 
 class _PlaylistScreenState extends State<PlaylistScreen> {
-  ScrollController? _scrollController;
+  late ScrollController _sc;
+  String jsonTracks = "[]";
 
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
+    _sc = ScrollController();
+
+    // 스크롤 속도 조절
+    _sc.addListener(() {
+      const extraSpeed = 10;
+
+      switch (_sc.position.userScrollDirection) {
+        case ScrollDirection.forward:
+          _sc.jumpTo(max(_sc.offset - extraSpeed, _sc.position.minScrollExtent));
+          break;
+        case ScrollDirection.reverse:
+          _sc.jumpTo(min(_sc.offset + extraSpeed, _sc.position.maxScrollExtent));
+          break;
+        case ScrollDirection.idle:
+          // nothing to do
+          break;
+      }
+    });
+
+    getTracks();
   }
 
   @override
   void dispose() {
-    _scrollController?.dispose();
+    _sc.dispose();
     super.dispose();
   }
 
@@ -103,17 +128,25 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
         ),
         child: Scrollbar(
           thumbVisibility: true,
-          controller: _scrollController,
+          controller: _sc,
           child: ListView(
-            controller: _scrollController,
+            controller: _sc,
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 60.0),
             children: [
               PlaylistHeader(playlist: widget.playlist),
-              TracksList(tracks: widget.playlist.songs),
+              TracksList(jsonData: jsonTracks),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> getTracks() async {
+    var data = await http.get(Uri.parse('https://treestae.com/demo/spotify/tracks'));
+
+    setState(() {
+      jsonTracks = data.body;
+    });
   }
 }

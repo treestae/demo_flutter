@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter    
 
+  http: ^0.13.4
   desktop_window: ^0.4.0
   provider: ^6.0.2
   url_strategy: ^0.2.0

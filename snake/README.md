@@ -18,29 +18,24 @@
 
 
 # Code snippets
+
+### 드래그 방향 검사
+https://github.com/treestae/demo_flutter/blob/aa8d53e61ef13797f8a47ad7433e43deaa95b914/snake/lib/main.dart#L72-L85
 <br/>
 
-## 드래그 방향 검사
-https://github.com/treestae/demo_flutter/blame/main/snake/lib/main.dart#L72-L85
+### 키보드 리스너 등록
+https://github.com/treestae/demo_flutter/blob/aa8d53e61ef13797f8a47ad7433e43deaa95b914/snake/lib/main.dart#L67-L70
 <br/>
   
-
-## 키보드 리스너 등록
-https://github.com/treestae/demo_flutter/blame/main/snake/lib/main.dart#L67-L70
+### 키보드 입력값 구분
+https://github.com/treestae/demo_flutter/blob/aa8d53e61ef13797f8a47ad7433e43deaa95b914/snake/lib/main.dart#L252-L277
 <br/>
   
-  
-## 키보드 입력값 구분
-https://github.com/treestae/demo_flutter/blame/main/snake/lib/main.dart#L252-L277
+### 속도 변경에 따른 Timer.interval의 주기 변경
+https://github.com/treestae/demo_flutter/blob/aa8d53e61ef13797f8a47ad7433e43deaa95b914/snake/lib/main.dart#L182-L205
 <br/>
-  
-  
-## 속도 변경에 따른 Timer.interval의 주기 변경
-https://github.com/treestae/demo_flutter/blame/main/snake/lib/main.dart#L182-L205
-<br/>
-  
   
 ## enum의 반대 방향값 리턴 확장함수
 아직(Dart 2.17)까지는 선언과 동시에 자신의 값을 리턴할 수는 없다.(재귀 호출로 무한 반복되기 때문)
-https://github.com/treestae/demo_flutter/blob/main/snake/lib/snake.dart#L114-L135
+https://github.com/treestae/demo_flutter/blob/aa8d53e61ef13797f8a47ad7433e43deaa95b914/snake/lib/snake.dart#L114-L135
 <br/>

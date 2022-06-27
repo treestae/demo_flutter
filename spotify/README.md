@@ -1,16 +1,24 @@
-# flutter_spotify_ui
+# 스포티파이 UI
 
-A new Flutter project.
+스포티파이 UI를 따라해서 만들어봤습니다.
 
-## Getting Started
+실제 음악 재생까지 구현은 하지 않았으며,
+JSON으로 트랙 정보를 받아옵니다.
+<br/>
 
-This project is a starting point for a Flutter application.
+# Code snippets
+<br/>
 
-A few resources to get you started if this is your first Flutter project:
+### ListView 스크롤 속도 조절
+https://github.com/treestae/demo_flutter/blob/0702a99cda270b772ea1b30f7f6f8b35f71ba342/spotify/lib/screens/playlist_screen.dart#L28-L45
+<br/>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### JSON 데이터 가져오기
+https://github.com/treestae/demo_flutter/blob/0702a99cda270b772ea1b30f7f6f8b35f71ba342/spotify/lib/screens/playlist_screen.dart#L145-L151
+<br/>
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### JSON 변환
+https://github.com/treestae/demo_flutter/blob/0702a99cda270b772ea1b30f7f6f8b35f71ba342/spotify/lib/data/data.dart#L42-L57
+
+https://github.com/treestae/demo_flutter/blob/0702a99cda270b772ea1b30f7f6f8b35f71ba342/spotify/lib/widgets/tracks_list.dart#L12-L17
+<br/>

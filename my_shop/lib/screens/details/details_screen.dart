@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_shop/screens/ScreenLimit.dart';
+import 'package:my_shop/screens/screen_limit.dart';
 import 'package:my_shop/screens/details/components/details_body.dart';
 
 import '../../constants.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_shop/constants.dart';
-import 'package:my_shop/screens/ScreenLimit.dart';
+import 'package:my_shop/screens/screen_limit.dart';
 
 import 'components/body.dart';
 

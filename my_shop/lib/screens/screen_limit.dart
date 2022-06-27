@@ -1,3 +1,4 @@
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 
 class ScreenLimit extends StatelessWidget {
@@ -8,6 +9,7 @@ class ScreenLimit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DesktopWindow.setMinWindowSize(Size(minWidth, double.infinity)); // minWidth for windows, linux, macOS
     return Center(
       child: ConstrainedBox(
         constraints: BoxConstraints(minWidth: minWidth, maxWidth: maxWidth), // no layout for Desktop

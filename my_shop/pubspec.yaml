@@ -15,6 +15,7 @@ dependencies:
     sdk: flutter
 
   url_strategy: ^0.2.0
+  desktop_window: ^0.4.0  # 데스크탑 앱 윈도우 크기 제한
 
   flutter_svg: ^1.0.3 # SVG 이미지를 쉽게 사용할 수 있게 해줍니다.
   intl: ^0.17.0       # NumberFormat 사용하여 콤마 표시

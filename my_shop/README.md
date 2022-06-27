@@ -1,16 +1,38 @@
-# my_shop
+# 나의 가방샵 UI
 
-A new Flutter project.
+간단한 쇼핑몰 클론입니다.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+# Code snippets
 
-A few resources to get you started if this is your first Flutter project:
+### Desktop 화면 크기 제한
+```dart
+import 'package:desktop_window/desktop_window.dart';
+```
+https://github.com/treestae/demo_flutter/blob/cff0c57ae04599269c402226dbe4ccafb0807d2e/my_shop/lib/screens/screen_limit.dart#L12
+  
+  
+### 무한 화면의 확장 제한(모바일 뷰처럼 제한된다)
+https://github.com/treestae/demo_flutter/blob/cff0c57ae04599269c402226dbe4ccafb0807d2e/my_shop/lib/screens/screen_limit.dart#L13-L18
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Scaffold 를 감싼다.
+https://github.com/treestae/demo_flutter/blob/cff0c57ae04599269c402226dbe4ccafb0807d2e/my_shop/lib/screens/home_screen.dart#L12-L19
+  
+  
+### GridView 사용법
+https://github.com/treestae/demo_flutter/blob/cff0c57ae04599269c402226dbe4ccafb0807d2e/my_shop/lib/screens/components/body.dart#L25-L41
+  
+  
+### 페이지 이동법
+이동
+https://github.com/treestae/demo_flutter/blob/cff0c57ae04599269c402226dbe4ccafb0807d2e/my_shop/lib/screens/components/body.dart#L35-L40
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+돌아가기
+https://github.com/treestae/demo_flutter/blob/cff0c57ae04599269c402226dbe4ccafb0807d2e/my_shop/lib/screens/details/details_screen.dart#L34
+  
+
+### Hero 위젯 사용법
+두 위젯을 같은 tag로 연결한다. 하나의 child를 두기 때문에 여러 위젯을 동시에 Hero 효과를 주기 위해서는 따로 따로 감싸야한다.
+https://github.com/treestae/demo_flutter/blob/cff0c57ae04599269c402226dbe4ccafb0807d2e/my_shop/lib/screens/components/item_card.dart#L31
+
+https://github.com/treestae/demo_flutter/blob/cff0c57ae04599269c402226dbe4ccafb0807d2e/my_shop/lib/screens/details/components/product_title_with_image.dart#L42-L48

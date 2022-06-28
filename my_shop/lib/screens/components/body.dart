@@ -24,10 +24,10 @@ class Body extends StatelessWidget {
           padding: const EdgeInsets.all(kDefaultPaddin),
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+              crossAxisCount: 2, // 위젯 가로 갯수
               mainAxisSpacing: kDefaultPaddin,
               crossAxisSpacing: kDefaultPaddin,
-              childAspectRatio: 3 / 4,
+              childAspectRatio: 3 / 4, // 비율
             ),
             itemCount: products.length,
             itemBuilder: (context, index) => ItemCard(

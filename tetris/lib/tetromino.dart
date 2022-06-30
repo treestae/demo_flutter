@@ -1,11 +1,6 @@
-class Tetromino {
-  final TetrominoType type;
-  List<List<int>> next;
+import 'package:flutter/material.dart';
 
-  Tetromino({required this.type, required this.next});
-}
-
-enum TetrominoType {
+enum Tetromino {
   I(
     next: [
       [0, 0, 0, 0],
@@ -14,9 +9,6 @@ enum TetrominoType {
     shape: [
       [
         [1, 1, 1, 1],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
       ],
       [
         [0, 0, 0, 1],
@@ -25,6 +17,7 @@ enum TetrominoType {
         [0, 0, 0, 1],
       ],
     ],
+    color: Color(0xFF00f0f0),
   ),
   J(
     next: [
@@ -33,34 +26,26 @@ enum TetrominoType {
     ],
     shape: [
       [
-        [0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 1, 1, 1],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
+        [1, 0, 0],
+        [1, 1, 1],
       ],
       [
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 1, 1, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 1, 0, 0],
+        [0, 1, 1],
+        [0, 1, 0],
+        [0, 1, 0],
       ],
       [
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [1, 1, 1, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 0, 0],
+        [0, 0, 0],
+        [1, 1, 1],
+        [0, 0, 1],
       ],
       [
-        [0, 0, 1, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 1, 1, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
+        [0, 1],
+        [0, 1],
+        [1, 1],
       ],
     ],
+    color: Color(0xFF0000f0),
   ),
   L(
     next: [
@@ -69,34 +54,26 @@ enum TetrominoType {
     ],
     shape: [
       [
-        [0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0],
-        [1, 1, 1, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
+        [0, 0, 1],
+        [1, 1, 1],
       ],
       [
-        [0, 0, 1, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 1, 1, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
+        [0, 1, 0],
+        [0, 1, 0],
+        [0, 1, 1],
       ],
       [
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 1, 1, 1],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 0, 0],
+        [0, 0, 0],
+        [1, 1, 1],
+        [1, 0, 0],
       ],
       [
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 1, 1, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 1, 0, 0],
+        [1, 1],
+        [0, 1],
+        [0, 1],
       ],
     ],
+    color: Color(0xFFf0a000),
   ),
   O(
     next: [
@@ -105,12 +82,11 @@ enum TetrominoType {
     ],
     shape: [
       [
-        [0, 0, 0, 0],
-        [0, 1, 1, 0],
-        [0, 1, 1, 0],
-        [0, 0, 0, 0],
+        [0, 1, 1],
+        [0, 1, 1],
       ],
     ],
+    color: Color(0xFFf0f000),
   ),
   T(
     next: [
@@ -121,7 +97,6 @@ enum TetrominoType {
       [
         [0, 1, 0],
         [1, 1, 1],
-        [0, 0, 0],
       ],
       [
         [0, 1, 0],
@@ -139,6 +114,7 @@ enum TetrominoType {
         [0, 1, 0],
       ],
     ],
+    color: Color(0xFFa000f0),
   ),
   S(
     next: [
@@ -149,7 +125,6 @@ enum TetrominoType {
       [
         [0, 1, 1],
         [1, 1, 0],
-        [0, 0, 0],
       ],
       [
         [1, 0, 0],
@@ -157,6 +132,7 @@ enum TetrominoType {
         [0, 1, 0],
       ],
     ],
+    color: Color(0xFF00f000),
   ),
   Z(
     next: [
@@ -167,7 +143,6 @@ enum TetrominoType {
       [
         [1, 1, 0],
         [0, 1, 1],
-        [0, 0, 0],
       ],
       [
         [0, 0, 1],
@@ -175,21 +150,42 @@ enum TetrominoType {
         [0, 1, 0],
       ],
     ],
+    color: Color(0xFFf00000),
+  ),
+  BLANK(
+    next: [
+      [1]
+    ],
+    shape: [
+      [
+        [1]
+      ]
+    ],
+    color: Colors.black45,
+  ),
+  STEEL(
+    next: [
+      [1]
+    ],
+    shape: [
+      [
+        [1]
+      ]
+    ],
+    color: Colors.grey,
   );
 
-  const TetrominoType({required this.next, required this.shape});
+  const Tetromino({required this.next, required this.shape, required this.color});
 
   final List<List<int>> next;
   final List<List<List<int>>> shape;
-}
+  final Color color;
 
-class TetrominoI extends Tetromino {
-  TetrominoI()
-      : super(
-          type: TetrominoType.I,
-          next: [
-            [0, 0, 0, 0],
-            [1, 1, 1, 1]
-          ],
-        );
+  /// enum에 일반 객체를 담을 수 없기 때문에 객체 생성 비용을 낮추고자
+  /// static으로 만들어 둔 Paint 객체의 값만 변경하여 리턴한다.
+  get paint => _paint..color = color;
+
+  static final Paint _paint = Paint()
+    ..style = PaintingStyle.fill
+    ..isAntiAlias = true;
 }

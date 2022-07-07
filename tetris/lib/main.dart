@@ -27,6 +27,9 @@ class _TetrisAppState extends State<TetrisApp> with SingleTickerProviderStateMix
   final FocusNode fn = FocusNode();
   late final AnimationController ac;
 
+  Duration? prevVerticalDrag = Duration();
+  Duration? prevHorizontalDrag = Duration();
+
   @override
   void initState() {
     super.initState();
@@ -43,82 +46,112 @@ class _TetrisAppState extends State<TetrisApp> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: KeyboardListener(
         focusNode: fn,
         autofocus: true,
         onKeyEvent: _keyboardControl,
-        child: Scaffold(
-          body: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: AspectRatio(
-                  aspectRatio: 10 / 21,
-                  child: Center(
-                    child: Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      color: Color(0xFFb2c7d9),
-                      child: CustomPaint(
-                        painter: MatrixRectPainter(matrix: game.stage),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(width: 8),
-              Column(
+        child: _dragControl(
+          child: Scaffold(
+            body: Builder(builder: (context) {
+              final size = MediaQuery.of(context).size;
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: 60,
-                    height: 120,
+                  Padding(
+                    padding: size.width >= 600 ? const EdgeInsets.all(12.0) : EdgeInsets.symmetric(vertical: size.height * 0.2),
                     child: AspectRatio(
-                      aspectRatio: 2 / 4,
+                      aspectRatio: 10 / 21,
                       child: Center(
                         child: Container(
-                          padding: EdgeInsets.all(10),
                           width: double.infinity,
                           height: double.infinity,
                           color: Color(0xFFb2c7d9),
                           child: CustomPaint(
-                            painter: MatrixRectPainter(matrix: game.player.nextMatrix(0)),
+                            painter: MatrixRectPainter(matrix: game.stage),
                           ),
                         ),
                       ),
                     ),
                   ),
-                  Container(width: 100, height: 100, color: Colors.blue),
-                  Container(width: 100, height: 100, color: Colors.yellow),
+                  SizedBox(width: 12),
+                  Column(
+                    children: [
+                      SizedBox(height: 10),
+                      Text("N E X T"),
+                      _nextTetromino(0),
+                      _nextTetromino(1),
+                      _nextTetromino(2),
+                      _nextTetromino(3),
+                      _nextTetromino(4),
+                      _nextTetromino(5),
+                      Text("S C O R E"),
+                      Text("${game.score}"),
+                      SizedBox(height: 50),
+                      Text("Arrow keys"),
+                      Text("or"),
+                      Text("Drag"),
+                      SizedBox(height: 10),
+                      Text("Space"),
+                      Text("or"),
+                      Text("DoubleTap"),
+                    ],
+                  ),
                 ],
-              ),
-            ],
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              if (game.isPlaying) {
-                game.isPlaying = false;
-                FlameAudio.bgm.stop();
-                ac.reverse();
-              } else {
-                game.newGame();
-                setState(() {});
-                game.isPlaying = true;
-                FlameAudio.bgm.play("isitnow.mp3", volume: 0.3);
-                ac.forward();
-                createTimer();
-              }
-            },
-            child: AnimatedIcon(
-              icon: AnimatedIcons.play_pause,
-              progress: CurvedAnimation(
-                curve: Curves.linear,
-                parent: ac,
+              );
+            }),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                if (game.isPlaying) {
+                  game.isPlaying = false;
+                  FlameAudio.bgm.stop();
+                  ac.reverse();
+                } else {
+                  game.newGame();
+                  setState(() {});
+                  game.isPlaying = true;
+                  FlameAudio.bgm.play("isitnow.mp3", volume: 0.3);
+                  ac.forward();
+                  createTimer();
+                }
+              },
+              child: AnimatedIcon(
+                icon: AnimatedIcons.play_pause,
+                progress: CurvedAnimation(
+                  curve: Curves.linear,
+                  parent: ac,
+                ),
               ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  Widget _nextTetromino(int index) {
+    return Builder(builder: (context) {
+      final size = MediaQuery.of(context).size;
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: SizedBox(
+          width: size.height / 10,
+          height: size.height / 20,
+          child: AspectRatio(
+            aspectRatio: 2 / 4,
+            child: Center(
+              child: SizedBox(
+                width: double.infinity,
+                height: double.infinity,
+                child: CustomPaint(
+                  painter: MatrixRectPainter(matrix: game.player.nextMatrix(index)),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    });
   }
 
   void createTimer() {
@@ -152,8 +185,63 @@ class _TetrisAppState extends State<TetrisApp> with SingleTickerProviderStateMix
       isMoved = game.move(MoveType.space);
     }
 
-    // print(isMoved);
     if (isMoved) setState(() {});
+  }
+
+  Widget _dragControl({required Widget child}) {
+    return GestureDetector(
+        child: child,
+
+        /// 회전 및 아래로 이동
+        onVerticalDragUpdate: (details) {
+          if (!game.isPlaying) return;
+          // 연속 입력 시간 체크
+          if (Duration(milliseconds: 130).compareTo(details.sourceTimeStamp! - prevVerticalDrag!) == -1) {
+            prevVerticalDrag = details.sourceTimeStamp;
+          } else {
+            return;
+          }
+          int sense = 1;
+          if (details.delta.dy.abs() < sense) return;
+
+          bool isMoved = false;
+          if (details.delta.dy < 0) {
+            isMoved = game.move(MoveType.rotation);
+          } else if (details.delta.dy > 0) {
+            isMoved = game.move(MoveType.down);
+          }
+          if (isMoved) setState(() {});
+        },
+
+        /// 좌우 이동
+        onHorizontalDragUpdate: (details) {
+          if (!game.isPlaying) return;
+
+          if (Duration(milliseconds: 80).compareTo(details.sourceTimeStamp! - prevHorizontalDrag!) == -1) {
+            prevHorizontalDrag = details.sourceTimeStamp;
+          } else {
+            return;
+          }
+          int sense = 2;
+          if (details.delta.dx.abs() < sense) return;
+
+          bool isMoved = false;
+
+          if (details.delta.dx < 0) {
+            isMoved = game.move(MoveType.left);
+          } else if (details.delta.dx > 0) {
+            isMoved = game.move(MoveType.right);
+          }
+          if (isMoved) setState(() {});
+        },
+
+        /// 바닥으로 이동
+        onDoubleTap: () {
+          if (!game.isPlaying) return;
+          bool isMoved = false;
+          isMoved = game.move(MoveType.space);
+          if (isMoved) setState(() {});
+        });
   }
 }
 
